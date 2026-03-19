@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya Pandey - Data Scientist & Full-Stack Developer</title>
+    <meta name="description" content="Portfolio of Aditya Pandey - Data Science student at RCOEM, Nagpur. ML, analytics, full-stack development.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Shadow Background Effects -->
+    <canvas id="shadowCanvas" class="shadow-canvas"></canvas>
+    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="#home" class="logo">AP</a>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero section-padding">
+        <div class="container">
+            <div class="hero-content">
+                <p class="hero-subtitle">👋 Welcome to my portfolio</p>
+                <h1>Hi, I'm <span class="gradient-text">Aditya Pandey</span></h1>
+                
+                <div class="typewriter-container">
+                    <span class="typewriter" id="typewriter"></span>
+                </div>
+                
+                <p class="hero-tagline">Turning Raw Data into Real-World Decisions.</p>
+                
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#contact" class="btn btn-secondary">Get Resume (Coming Soon)</a>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://github.com/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-dot"></div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats section-padding">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">8.09</div>
+                    <div class="stat-label">CGPA</div>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">6+</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Certifications</div>
+                </div>
+                <div class="stat-card animate-on-scroll">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Skills</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section id="projects" class="projects section-padding">
+        <div class="container">
+            <h2 class="section-heading">Featured Projects</h2>
+            <p class="section-subtitle">Showcasing my best work in Data Science, ML, and Full-Stack Development</p>
+            
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Projects will be loaded by JavaScript -->
+            </div>
+            
+            <div class="text-center">
+                <a href="#projects" class="btn btn-primary">View All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about section-padding">
+        <div class="container">
+            <h2 class="section-heading">About Me</h2>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Hi, I'm Aditya Pandey 👋 — a 20-year-old Data Science undergraduate and aspiring Data Analyst / ML Engineer based in Nagpur, India.</p>
+                    
+                    <p>I'm currently pursuing my B.Tech in Computer Science Engineering (Data Science) at Shri Ramdeobaba College of Engineering and Management (RCOEM), Nagpur, with a CGPA of 8.09.</p>
+                    
+                    <h3>What I Do:</h3>
+                    <p><strong>🔬 Data Science & Analytics:</strong> I specialize in building anomaly detection systems, predictive models, and automated dashboards using Python, SQL, and Power BI.</p>
+                    
+                    <p><strong>💻 Full-Stack Development:</strong> I build complete web applications using React.js, Next.js, Node.js, Express.js, and MongoDB.</p>
+                    
+                    <p><strong>🤖 Machine Learning & Deep Learning:</strong> I've earned NVIDIA and Cisco certifications and apply ML techniques to solve real-world problems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills section-padding">
+        <div class="container">
+            <h2 class="section-heading">Skills & Expertise</h2>
+            
+            <div class="skills-container" id="skillsContainer">
+                <!-- Skills will be loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section-padding">
+        <div class="container">
+            <h2 class="section-heading">Get In Touch</h2>
+            <p class="section-subtitle">Have a project in mind? I'd love to hear from you!</p>
+            
+            <div class="contact-content">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <div id="formMessage" class="form-message" style="display:none;"></div>
+                </form>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:adityapandey2479@gmail.com">adityapandey2479@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <a href="tel:+919713948039">+91 9713948039</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Nagpur, Maharashtra, India</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Aditya Pandey. All rights reserved.</p>
+                <p>Designed & Built with ⚡ using HTML, CSS & JavaScript</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
