@@ -90,7 +90,7 @@ export default function Home() {
               {[
                 { label: 'Based In', value: personalInfo.location },
                 { label: 'Degree', value: personalInfo.degree },
-                { label: 'Semester', value: personalInfo.semester },
+                { label: 'Focus', value: 'Data Science' },
                 { label: 'Graduation', value: String(personalInfo.graduationYear) },
               ].map((item) => (
                 <div key={item.label} className="rounded-2xl border border-cyan-500/20 bg-gray-900/70 px-4 py-4 text-left">
