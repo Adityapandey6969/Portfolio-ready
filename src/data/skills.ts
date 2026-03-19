@@ -66,8 +66,8 @@ export const skillsData: SkillCategory[] = [
 ];
 
 export const stats = [
-  { label: 'CGPA', value: '8.09' },
   { label: 'Projects', value: '6+' },
   { label: 'Certifications', value: '2' },
   { label: 'Skills', value: '25+' },
+  { label: 'Years Learning', value: '3+' },
 ];

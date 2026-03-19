@@ -2,7 +2,38 @@
 
 import React, { useEffect, useRef } from 'react';
 
-export default function ShadowFighter() {
+interface ShadowFighterProps {
+  motionSeed?: number;
+}
+
+function drawSword(
+  ctx: CanvasRenderingContext2D,
+  length: number,
+  bladeWidth: number,
+  handleLength: number
+) {
+  ctx.save();
+
+  ctx.fillStyle = 'rgba(226, 232, 240, 0.95)';
+  ctx.beginPath();
+  ctx.moveTo(0, -bladeWidth / 2);
+  ctx.lineTo(length - 12, -bladeWidth / 2);
+  ctx.lineTo(length, 0);
+  ctx.lineTo(length - 12, bladeWidth / 2);
+  ctx.lineTo(0, bladeWidth / 2);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = 'rgba(34, 211, 238, 0.95)';
+  ctx.fillRect(-5, -7, 10, 14);
+
+  ctx.fillStyle = 'rgba(15, 23, 42, 1)';
+  ctx.fillRect(-handleLength, -4, handleLength, 8);
+
+  ctx.restore();
+}
+
+export default function ShadowFighter({ motionSeed = 0 }: ShadowFighterProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -12,91 +43,87 @@ export default function ShadowFighter() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
     const resizeCanvas = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+      const dpr = window.devicePixelRatio || 1;
+      const width = canvas.offsetWidth;
+      const height = canvas.offsetHeight;
+
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
+
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    let animationFrame: number;
-    let time = 0;
+    let animationFrame = 0;
+    let time = motionSeed * 20;
 
-    const drawShadowFighter = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const drawSwords = () => {
+      const width = canvas.offsetWidth;
+      const height = canvas.offsetHeight;
 
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
+      ctx.clearRect(0, 0, width, height);
 
-      // Create glowing shadow effect
-      ctx.shadowColor = 'rgba(6, 182, 212, 0.8)';
-      ctx.shadowBlur = 30;
-      ctx.shadowOffsetX = 5;
-      ctx.shadowOffsetY = 5;
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const sway = Math.sin(time * 0.025) * 10;
+      const bounce = Math.cos(time * 0.04) * 8;
+      const leftAngle = -0.85 + Math.sin(time * 0.08) * 0.24;
+      const rightAngle = 0.85 + Math.cos(time * 0.075) * 0.24;
 
-      // Fighter stance variations based on time
-      const stance = Math.sin(time * 0.01) * 0.3;
-      const punchPhase = Math.sin(time * 0.02) * 1;
-      const kickPhase = Math.cos(time * 0.015) * 1;
+      ctx.save();
+      ctx.translate(centerX + sway, centerY + bounce);
+      ctx.shadowColor = 'rgba(34, 211, 238, 0.75)';
+      ctx.shadowBlur = 28;
 
-      // Draw fighter silhouette
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      ctx.strokeStyle = 'rgba(103, 232, 249, 0.5)';
+      ctx.lineWidth = 3;
 
-      // Head
       ctx.beginPath();
-      ctx.arc(centerX, centerY - 60, 20, 0, Math.PI * 2);
+      ctx.arc(-8, -12, 88, -1.2, -0.45);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(8, -12, 88, Math.PI + 0.45, Math.PI + 1.2);
+      ctx.stroke();
+
+      ctx.save();
+      ctx.rotate(leftAngle);
+      drawSword(ctx, 92, 10, 26);
+      ctx.restore();
+
+      ctx.save();
+      ctx.rotate(rightAngle);
+      ctx.scale(-1, 1);
+      drawSword(ctx, 92, 10, 26);
+      ctx.restore();
+
+      ctx.fillStyle = 'rgba(6, 182, 212, 0.3)';
+      ctx.beginPath();
+      ctx.arc(0, 0, 14, 0, Math.PI * 2);
       ctx.fill();
 
-      // Body
-      ctx.fillRect(centerX - 15, centerY - 40, 30, 50);
-
-      // Left arm (punching)
-      ctx.save();
-      ctx.translate(centerX - 15, centerY - 20);
-      ctx.rotate(punchPhase * 0.5);
-      ctx.fillRect(0, 0, 35 + punchPhase * 10, 12);
       ctx.restore();
 
-      // Right arm
-      ctx.save();
-      ctx.translate(centerX + 15, centerY - 20);
-      ctx.rotate(-stance * 0.3);
-      ctx.fillRect(-35, 0, 35, 12);
-      ctx.restore();
-
-      // Left leg
-      ctx.save();
-      ctx.translate(centerX - 8, centerY + 10);
-      ctx.rotate(stance * 0.2);
-      ctx.fillRect(0, 0, 12, 40);
-      ctx.restore();
-
-      // Right leg (kicking)
-      ctx.save();
-      ctx.translate(centerX + 8, centerY + 10);
-      ctx.rotate(kickPhase * 0.4);
-      ctx.fillRect(-12, 0, 12, 40 + Math.abs(kickPhase) * 15);
-      ctx.restore();
-
-      time++;
-      animationFrame = requestAnimationFrame(drawShadowFighter);
+      time += 1;
+      animationFrame = requestAnimationFrame(drawSwords);
     };
 
-    drawShadowFighter();
+    drawSwords();
 
     return () => {
       cancelAnimationFrame(animationFrame);
       window.removeEventListener('resize', resizeCanvas);
     };
-  }, []);
+  }, [motionSeed]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="w-full h-full"
+      className="h-full w-full"
       style={{
-        filter: 'drop-shadow(0 0 20px rgba(6, 182, 212, 0.6))',
+        filter: 'drop-shadow(0 0 28px rgba(6, 182, 212, 0.45))',
       }}
     />
   );

@@ -24,7 +24,7 @@ export const educationData: Education[] = [
     degree: 'B.Tech in CSE (Data Science)',
     school: 'Shri Ramdeobaba College of Engineering & Management, Nagpur',
     year: '2023 - 2027 (Expected)',
-    percentage: 'CGPA: 8.09 (till 5th Semester)',
+    percentage: 'Ongoing undergraduate program',
   },
   {
     degree: 'HSC (12th Grade)',

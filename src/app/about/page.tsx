@@ -36,16 +36,16 @@ export default function About() {
                   <p className="text-sm text-gray-100">{personalInfo.location}</p>
                 </div>
                 <div className="rounded-2xl bg-gray-950/70 p-4 border border-white/10">
-                  <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">CGPA</p>
-                  <p className="text-sm text-gray-100">{personalInfo.cgpa}</p>
-                </div>
-                <div className="rounded-2xl bg-gray-950/70 p-4 border border-white/10">
                   <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Semester</p>
                   <p className="text-sm text-gray-100">{personalInfo.semester}</p>
                 </div>
                 <div className="rounded-2xl bg-gray-950/70 p-4 border border-white/10">
                   <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Graduation</p>
                   <p className="text-sm text-gray-100">{personalInfo.graduationYear}</p>
+                </div>
+                <div className="rounded-2xl bg-gray-950/70 p-4 border border-white/10">
+                  <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Focus</p>
+                  <p className="text-sm text-gray-100">Data Science</p>
                 </div>
               </div>
             </div>

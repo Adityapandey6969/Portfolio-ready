@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import ShadowFighter from '@/src/components/ui/ShadowFighter';
 
 export default function ScrollFighter() {
   const [scrollY, setScrollY] = useState(0);
@@ -15,17 +16,17 @@ export default function ScrollFighter() {
   }, []);
 
   return (
-    <div className="fixed right-4 top-1/2 transform -translate-y-1/2 pointer-events-none z-10 hidden lg:block">
+    <div className="fixed right-3 top-1/2 z-10 hidden -translate-y-1/2 pointer-events-none xl:block">
       <div
+        className="relative h-[280px] w-[220px]"
         style={{
-          transform: `translateX(${Math.sin(scrollY * 0.01) * 20}px) translateY(${Math.cos(scrollY * 0.01) * 10}px)`,
-          transition: 'transform 0.1s ease-out',
+          transform: `translateX(${Math.sin(scrollY * 0.01) * 18}px) translateY(${Math.cos(scrollY * 0.015) * 10}px)`,
+          transition: 'transform 0.12s ease-out',
         }}
       >
-        <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full opacity-30 blur-xl" />
-        <div className="absolute top-0 left-0 flex h-16 w-16 items-center justify-center text-sm font-bold tracking-[0.2em] text-cyan-300">
-          FX
-        </div>
+        <div className="absolute inset-x-8 bottom-5 h-16 rounded-full bg-cyan-500/20 blur-2xl" />
+        <div className="absolute inset-0 rounded-[2rem] border border-cyan-500/10 bg-gradient-to-b from-cyan-500/5 via-transparent to-blue-500/10 backdrop-blur-[2px]" />
+        <ShadowFighter motionSeed={scrollY * 0.01} />
       </div>
     </div>
   );
