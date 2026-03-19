@@ -123,8 +123,6 @@ npm start
 ## 📞 Contact Information
 
 - **Email**: adityapandey2479@gmail.com
-- **Phone**: +91 9713948039
-- **Location**: Nagpur, Maharashtra, India
 - **GitHub**: [github.com/](https://github.com/)
 - **LinkedIn**: [linkedin.com/in/](https://linkedin.com/in/)
 
