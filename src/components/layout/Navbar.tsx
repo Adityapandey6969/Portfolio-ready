@@ -87,14 +87,14 @@ export default function Navbar() {
         <div className="md:hidden absolute top-full left-0 w-full glass-effect mt-2 py-4 px-4 animate-slideDown">
           <div className="flex flex-col gap-4">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-gray-300 hover:text-cyan-400 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.label}
-              </Link>
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-gray-300 hover:text-cyan-400 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              {link.label}
+            </Link>
             ))}
             <div className="flex gap-4 pt-4 border-t border-gray-700">
               <a

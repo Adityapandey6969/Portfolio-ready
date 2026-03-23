@@ -2,12 +2,13 @@
 
 import { useState } from 'react';
 import { personalInfo } from '@/src/data/personal';
-import { BsGithub, BsLinkedin, BsEnvelope, BsPhone, BsGeo } from 'react-icons/bs';
+import { BsGithub, BsLinkedin, BsEnvelope, BsGeo } from 'react-icons/bs';
 import GameCard from '@/src/components/ui/GameCard';
 
 const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
 
 export default function Contact() {
+  const hasFormEndpoint = Boolean(FORM_ENDPOINT);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,6 +17,24 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
+
+  const openEmailDraft = async () => {
+    const mailtoLink = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
+      formData.subject
+    )}&body=${encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
+    )}`;
+
+    try {
+      await navigator.clipboard.writeText(
+        `Name: ${formData.name}\nEmail: ${formData.email}\nSubject: ${formData.subject}\n\n${formData.message}`
+      );
+    } catch {
+      // Clipboard support is not guaranteed, so we still continue to the mail client.
+    }
+
+    window.location.href = mailtoLink;
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -29,27 +48,20 @@ export default function Contact() {
     setIsSubmitting(true);
     setSubmitMessage('');
 
-    const mailtoLink = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
-      formData.subject
-    )}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
-    )}`;
-
-    if (!FORM_ENDPOINT) {
-      window.location.href = mailtoLink;
+    if (!hasFormEndpoint) {
+      await openEmailDraft();
       setIsSubmitting(false);
       return;
     }
 
     try {
-      const response = await fetch(FORM_ENDPOINT, {
+      const response = await fetch(FORM_ENDPOINT!, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       }).catch(() => {
-        window.location.href = mailtoLink;
         return null;
       });
 
@@ -57,10 +69,12 @@ export default function Contact() {
         setSubmitMessage("Message sent successfully! I'll get back to you soon.");
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
-        window.location.href = mailtoLink;
+        await openEmailDraft();
+        setSubmitMessage('The form backend is unavailable, so I opened an email draft instead.');
       }
     } catch {
-      window.location.href = mailtoLink;
+      await openEmailDraft();
+      setSubmitMessage('The form backend is unavailable, so I opened an email draft instead.');
     } finally {
       setIsSubmitting(false);
     }
@@ -71,7 +85,7 @@ export default function Contact() {
       <section className="section-padding bg-gradient-to-b from-gray-900 to-gray-800 pt-40">
         <div className="container-custom">
           <h1 className="section-heading gradient-text text-center mb-4">Get In Touch</h1>
-          <p className="text-gray-400 text-center text-lg max-w-2xl mx-auto">
+          <p className="text-gray-300 text-center text-lg max-w-2xl mx-auto">
             Have a project in mind, a question, or just want to say hi? I&apos;d love to hear from you!
           </p>
         </div>
@@ -157,7 +171,7 @@ export default function Contact() {
                   disabled={isSubmitting}
                   className="button-primary w-full disabled:opacity-50"
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                  {isSubmitting ? 'Sending...' : hasFormEndpoint ? 'Send Message' : 'Open Email Draft'}
                 </button>
               </form>
             </GameCard>
@@ -180,21 +194,6 @@ export default function Contact() {
 
               <GameCard delay={250}>
                 <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 flex items-start gap-4">
-                  <BsPhone className="text-cyan-400 text-2xl flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold mb-1">Phone</h3>
-                    <a
-                      href={`tel:${personalInfo.phone}`}
-                      className="text-gray-400 hover:text-cyan-400 transition-colors"
-                    >
-                      {personalInfo.phone}
-                    </a>
-                  </div>
-                </div>
-              </GameCard>
-
-              <GameCard delay={300}>
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 flex items-start gap-4">
                   <BsGeo className="text-cyan-400 text-2xl flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-semibold mb-1">Location</h3>
@@ -203,7 +202,7 @@ export default function Contact() {
                 </div>
               </GameCard>
 
-              <GameCard delay={350}>
+              <GameCard delay={300}>
                 <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700">
                   <h3 className="font-semibold mb-4">Follow Me</h3>
                   <div className="flex gap-4">

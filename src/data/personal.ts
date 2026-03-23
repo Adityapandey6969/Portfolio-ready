@@ -5,19 +5,17 @@ export const personalInfo = {
   shortBio:
     "I'm Aditya Pandey, a Data Science undergrad at RCOEM, Nagpur passionate about turning raw data into actionable insights. I build anomaly detection systems, predictive models, and full-stack data applications using Python, SQL, Power BI, React, and Node.js.",
   email: 'adityapandey2479@gmail.com',
-  phone: '+91 9713948039',
   location: 'Nagpur, Maharashtra, India',
   dob: '2005-01-31',
   age: 20,
   gender: 'Male',
   university: 'Shri Ramdeobaba College of Engineering and Management',
   degree: 'B.Tech in CSE (Data Science)',
-  semester: '5th',
   graduationYear: 2027,
   profileImage: '/images/profile/My_photo.jpeg',
   social: {
     github: 'https://github.com/',
-    linkedin: 'https://linkedin.com/in/',
+    linkedin: 'https://www.linkedin.com/in/aditya-pandey-85b515311/',
     codolio: 'https://codolio.com/',
   },
   typewriterRoles: [
